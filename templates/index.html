@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>London House Price Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>London House Price Predictor</h1>
+      <p class="subtitle">Enter property details to estimate the sale price</p>
+    </header>
+
+    {% if result %}
+      <div class="card success">
+        <div class="label">Predicted Price</div>
+        <div class="price">£ {{ result }}</div>
+      </div>
+    {% endif %}
+
+    <form method="post" novalidate class="card form">
+      <div class="grid">
+        <div class="field">
+          <label>Bathrooms</label>
+          <input type="number" name="bathrooms" required min="0" max="10"
+                 value="{{ values.get('bathrooms','') }}">
+          <small class="error">{{ errors.get('bathrooms','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Bedrooms</label>
+          <input type="number" name="bedrooms" required min="0" max="15"
+                 value="{{ values.get('bedrooms','') }}">
+          <small class="error">{{ errors.get('bedrooms','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Floor area (sqm)</label>
+          <input type="number" step="0.1" name="floor_area" required min="5" max="2000"
+                 value="{{ values.get('floor_area','') }}">
+          <small class="error">{{ errors.get('floor_area','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Living rooms</label>
+          <input type="number" name="living_rooms" required min="0" max="10"
+                 value="{{ values.get('living_rooms','') }}">
+          <small class="error">{{ errors.get('living_rooms','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Tenure (years)</label>
+          <input type="number" name="tenure" required min="0" max="999"
+                 value="{{ values.get('tenure','') }}">
+          <small class="error">{{ errors.get('tenure','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Property type</label>
+          <select name="property_type" required>
+            <option value="" disabled selected>Select type</option>
+            {% for pt in PROPERTY_TYPES %}
+              <option value="{{ pt }}" {% if values.get('property_type')==pt %}selected{% endif %}>{{ pt }}</option>
+            {% endfor %}
+          </select>
+          <small class="error">{{ errors.get('property_type','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Energy rating</label>
+          <select name="energy_rating" required>
+            <option value="" disabled selected>Select rating</option>
+            {% for er in ENERGY_RATINGS %}
+              <option value="{{ er }}" {% if values.get('energy_rating')==er %}selected{% endif %}>{{ er }}</option>
+            {% endfor %}
+          </select>
+          <small class="error">{{ errors.get('energy_rating','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Postcode</label>
+          <input type="text" name="postcode" required placeholder="E1 3AD"
+                 pattern="^[A-Za-z]{1,2}\d{1,2}[A-Za-z]?\s*\d[A-Za-z]{2}$"
+                 value="{{ values.get('postcode','') }}">
+          <small class="hint">Example: E1 3AD</small>
+          <small class="error">{{ errors.get('postcode','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Sale year</label>
+          <input type="number" name="sale_year" required min="1900" max="2025"
+                 value="{{ values.get('sale_year','') }}">
+          <small class="error">{{ errors.get('sale_year','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Latitude</label>
+          <input type="number" step="0.000001" name="latitude" required min="51.2" max="51.8"
+                 value="{{ values.get('latitude','') }}">
+          <small class="error">{{ errors.get('latitude','') }}</small>
+        </div>
+
+        <div class="field">
+          <label>Longitude</label>
+          <input type="number" step="0.000001" name="longitude" required min="-0.6" max="0.3"
+                 value="{{ values.get('longitude','') }}">
+          <small class="error">{{ errors.get('longitude','') }}</small>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Predict Price</button>
+      </div>
+    </form>
+
+    <footer>
+      <small>Tip: Use a real London postcode for better feature extraction.</small>
+    </footer>
+  </div>
+</body>
+</html>
