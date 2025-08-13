@@ -9,7 +9,7 @@ A simple Flask web app and API that predicts London house prices using a stacked
 
 Below is a screenshot showing the **London House Price Predictor** web interface in action.
 
-![London House Price Predictor Screenshot](https://github.com/arvinjayanake/london-house-price-predictor/tree/main/static/london_house_price_predictor_screenshot.png)
+![London House Price Predictor Screenshot](https://raw.githubusercontent.com/arvinjayanake/london-house-price-predictor/refs/heads/main/static/london_house_price_predictor_screenshot.png)
 
 > The image above shows the form filled with sample values and the predicted price displayed after clicking **Predict**.
 
