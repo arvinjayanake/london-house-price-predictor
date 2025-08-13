@@ -117,8 +117,6 @@ def index():
                 resp.raise_for_status()
                 price = resp.json().get("prediction", None)
 
-                print("Price:", price)
-
                 if price is None:
                     errors = {"__all__": "Prediction API returned no price."}
                     price_text = None
