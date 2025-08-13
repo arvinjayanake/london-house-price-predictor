@@ -110,9 +110,6 @@ def index():
                 "longitude": form_values["longitude"],
             }
 
-            payload_json = json.dumps(payload)
-            print(payload_json)
-
             try:
                 # Call internal API (absolute URL required)
                 api_url = url_for("api_predict", _external=True)
